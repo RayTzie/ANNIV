@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="flower.css">
+  <title>Rose 3D</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap");
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .button {
+      position: fixed; /* Position the button relative to the viewport */
+      bottom: 10px; /* Distance from the bottom */
+      right: 10px; /* Distance from the right */
+      padding: 5px 10px;
+      background-color:transparent;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-size: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-family: "Jost" !important;
+      margin-right: 25px;
+      margin-bottom: 25px;
+    }
+    body {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle, #82707a, #24111e 100%);
+    }
+    main {
+      position: relative;
+      z-index: 1;
+    }
+    
+    
+    canvas {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a href="nxtflower/nxtflower.html" class="button">Next</a>
+  </main>
+  <div id="filter"></div>
+  <script></script>
+  <script async src="https://ga.jspm.io/npm:es-module-shims@1.6.3/dist/es-module-shims.js" crossorigin="anonymous"></script>
+  <script type="importmap">
+    {
+      "imports": {      
+        "three": "https://unpkg.com/three@0.150.1/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.150.1/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+
+    let container;
+    let camera, scene, renderer, controls;
+    let manager;
+    let object;
+    let material = new THREE.MeshStandardMaterial({
+      metalness: 0,
+      roughness: 0.8,
+      side: THREE.DoubleSide
+    });
+
+    init();
+    animate();
+
+    function init() {
+      container = document.createElement("div");
+      document.body.appendChild(container);
+    
+      camera = new THREE.PerspectiveCamera(
+        33,
+        window.innerWidth / window.innerHeight,
+        1,
+        2000
+      );
+      camera.position.y = 150;
+      camera.position.z = 250;
+    
+      scene = new THREE.Scene();
+    
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+      scene.add(ambientLight);
+    
+      const pointLight = new THREE.PointLight(0xffffff, 0.5);
+      pointLight.castShadow = true;
+      camera.add(pointLight);
+      scene.add(camera);
+    
+      function loadModel() {
+        object.traverse(function (child) {
+          if (child.isMesh) {
+            if (child.name == "rose") {
+              material = material.clone();
+              material.color.set("crimson"); 
+            } else if (child.name == "calyx") {
+              material = material.clone();
+              material.color.set("#001a14");
+            } else if (child.name == "leaf1" || child.name == "leaf2") {
+              material = material.clone();
+              material.color.set("#00331b");
+            }
+            child.material = material;
+          }
+        });
+        object.rotation.set(0, Math.PI / 1.7, 0);
+        object.receiveShadow = true;
+        object.castShadow = true;
+        scene.add(object);
+      }
+    
+      manager = new THREE.LoadingManager(loadModel);
+    
+      function onProgress(xhr) {
+        if (xhr.lengthComputable) {
+          const percentComplete = (xhr.loaded / xhr.total) * 100;
+        }
+      }
+      function onError() {}
+    
+      const loader = new OBJLoader(manager);
+      loader.load(
+        "https://happy358.github.io/Images/Model/red_rose3.obj",
+        function (obj) {
+          object = obj;
+        },
+        onProgress,
+        onError
+      );
+    
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      renderer.shadowMap.enabled = true;
+      container.appendChild(renderer.domElement);
+    
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 2;
+      controls.enableDamping = true;
+      controls.enablePan = false;
+      controls.minPolarAngle = 0;
+      controls.maxPolarAngle = Math.PI / 2;
+      controls.target.set(0, 0, 0);
+      controls.update();
+    
+      window.addEventListener("resize", onWindowResize);
+    }
+    
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+    
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      render();
+    }
+    
+    function render() {
+      renderer.render(scene, camera);
+    }
+  </script>
+</body>
+</html>

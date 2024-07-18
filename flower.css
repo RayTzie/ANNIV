@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+.button {
+  position: fixed; /* Position the button relative to the viewport */
+  bottom: 10px; /* Distance from the bottom */
+  right: 10px; /* Distance from the right */
+  padding: 5px 10px;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-family: "Jost" !important;
+  margin-right: 25px;
+  margin-bottom: 25px;
+}
+body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle, #82707a, #24111e 100%);
+}
+main {
+  position: relative;
+  z-index: 1;
+}
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 0;
+}
+@media (max-width: 600px) {
+  .button {
+    font-size: 16px;
+    padding: 3px 8px;
+    bottom: 5px;
+    right: 5px;
+  }
+}
