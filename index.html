@@ -66,10 +66,11 @@
         <source src="audio/Palagi (Live at The Cozy Cove) - TJ Monterde-[AudioTrimmer.com].mp3" type="audio/mpeg">
     </audio>
     <script>
-
+        
         document.addEventListener('DOMContentLoaded', function() {
             var audio = document.getElementById('background-music');
             var bars = document.querySelectorAll('#myPalagiButton .bar');
+            var button = document.getElementById('myPalagiButton');
         
             // Initially hide sound bars
             bars.forEach(function(bar) {
@@ -88,6 +89,8 @@
         
             // Toggle audio and show/hide sound bars animation
             function toggleAudio() {
+                button.classList.toggle('active'); // Toggle the active class
+        
                 if (audio.paused || audio.ended) {
                     audio.volume = 0.2; // Set volume to 20%
                     audio.play().catch(function(error) {
@@ -111,10 +114,7 @@
             }
         
             // Attach toggleAudio function to button click
-            var myPalagiButton = document.getElementById('myPalagiButton');
-            if (myPalagiButton) {
-                myPalagiButton.addEventListener('click', toggleAudio);
-            }
+            button.addEventListener('click', toggleAudio);
         });
         
         

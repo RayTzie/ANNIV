@@ -26,11 +26,11 @@ body {
 }
 
 .greetings{
-    font-size: 6rem;
-    font-weight: 900;
+    font-size: 4rem !important;
+    font-weight: 900 !important;
 }
 .greetings > span{
-    animation: glow 2.5s ease-in-out infinite;
+    animation: glow 3s ease-in-out infinite;
 }
 @keyframes glow{
     0%, 100%{
@@ -69,8 +69,9 @@ body {
     
 }
 button {
-    background-color: #FF69B4; /* Bright pink color */
+    background-color: #ff69b4a2; /* Bright pink color */
     border: none;
+    padding: 4px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
@@ -85,7 +86,7 @@ button:hover {
 }
 
 .button1 button {
-    background-color: #FF69B4; /* Green background */
+    background-color: #ff69b4a2; /* Pink background */
     border: none;
     color: white;
     padding: 12px 10px;
@@ -102,8 +103,8 @@ button:hover {
     position: relative; /* Ensure the button is relative for absolute positioning of bars */
 }
 
-.button1 button:hover {
-    background-color: transparent; /* Darker green on hover */
+.button1 button.active {
+    background-color: transparent; 
     color: transparent !important;
 }
 
@@ -121,10 +122,9 @@ button:hover {
     bottom: 1px;
     width: 5px; /* Width of each bar */
     height: 5px; /* Initial height of each bar */
-    background-color: #FF1493; /* Pink */
+    background-color:rgb(246, 145, 145); /* Pink */
     opacity: 0.35; /* Initial opacity */
     animation: sound 0ms -800ms linear infinite alternate; /* Initial animation properties */
-    gap: 5px;
 }
 
 @keyframes sound {
@@ -134,7 +134,7 @@ button:hover {
     }
     100% {
         opacity: 1;
-        height: 40px; /* Max height */
+        height: 28px; /* Max height */
     }
 }
 
@@ -200,10 +200,11 @@ body {
     position: absolute;
     width: 100%;
     display: inline-block;
-    color: black !important;
+    color: rgb(246, 145, 145) !important;
     font-family: "Raleway", sans-serif;
     font-size: 50px;
-    margin-top: 50px;
+    margin-top: 40px !important;
+    margin-bottom: 20px !important;
     font-family: "Jost" !important;
     text-align: center;
     font-weight: 600;
