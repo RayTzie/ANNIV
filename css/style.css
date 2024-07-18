@@ -61,8 +61,9 @@ body {
 }
 
 .button a{
-    text-decoration: none;
-    font-size: 25px;
+    text-decoration: wavy;
+    font-size: 20px !important;
+    font-style: italic;
     margin: 8px 4px;
     color: #ffffff;
     
@@ -77,6 +78,80 @@ button {
 button:hover {
     background-color: #FF1493; /* Darker pink on hover */
 }
+
+.button1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button1 button {
+    background-color: #FF69B4; /* Green background */
+    border: none;
+    color: white;
+    padding: 12px 10px;
+    margin-bottom: 10px !important;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+    position: relative; /* Ensure the button is relative for absolute positioning of bars */
+}
+
+.button1 button:hover {
+    background-color: transparent; /* Darker green on hover */
+    color: transparent !important;
+}
+
+#bars {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px; /* Adjust width as needed */
+    height: 30px; /* Adjust height as needed */
+}
+
+.bar {
+    position: absolute;
+    bottom: 1px;
+    width: 5px; /* Width of each bar */
+    height: 5px; /* Initial height of each bar */
+    background-color: #FF1493; /* Pink */
+    opacity: 0.35; /* Initial opacity */
+    animation: sound 0ms -800ms linear infinite alternate; /* Initial animation properties */
+    gap: 5px;
+}
+
+@keyframes sound {
+    0% {
+        opacity: 0.35;
+        height: 3px; /* Initial height */
+    }
+    100% {
+        opacity: 1;
+        height: 40px; /* Max height */
+    }
+}
+
+/* Animation duration for each bar */
+.bar:nth-child(1) { left: 1px; animation-duration: 474ms; }
+.bar:nth-child(2) { left: 5px; animation-duration: 433ms; }
+.bar:nth-child(3) { left: 9px; animation-duration: 407ms; }
+.bar:nth-child(4) { left: 13px; animation-duration: 458ms; }
+.bar:nth-child(5) { left: 17px; animation-duration: 400ms; }
+.bar:nth-child(6) { left: 21px; animation-duration: 427ms; }
+.bar:nth-child(7) { left: 25px; animation-duration: 441ms; }
+.bar:nth-child(8) { left: 29px; animation-duration: 419ms; }
+.bar:nth-child(9) { left: 33px; animation-duration: 487ms; }
+.bar:nth-child(10) { left: 37px; animation-duration: 442ms; }
+
+
+
 @media (max-width: 600px) {
     button a {
         text-decoration: none;

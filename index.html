@@ -34,14 +34,95 @@
         </defs>
     </svg>
 
+    <div class="button1">
+        <button onclick="toggleAudio()" id="myPalagiButton">
+            MY PALAGI
+            <div id="bars">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </button>
+    </div>
    
+
     <div class="button">
         <button>
-            <a href="flower.html">Click Here</a>
+            <a href="flower.html">Flowers for you</a>
         </button>
         
     </div>
+    
+    
+
+    <audio id="background-music" autoplay loop>
+        <source src="audio/Palagi (Live at The Cozy Cove) - TJ Monterde-[AudioTrimmer.com].mp3" type="audio/mpeg">
+    </audio>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var audio = document.getElementById('background-music');
+            var bars = document.querySelectorAll('#myPalagiButton .bar');
+        
+            // Initially hide sound bars
+            bars.forEach(function(bar) {
+                bar.style.display = 'none';
+            });
+        
+            // Function to generate random animation duration
+            function getRandomDuration() {
+                return Math.floor(Math.random() * 1000) + 300; // Random duration between 300ms to 1300ms
+            }
+        
+            // Function to generate random animation delay
+            function getRandomDelay() {
+                return Math.floor(Math.random() * 400); // Random delay between 0ms to 400ms
+            }
+        
+            // Toggle audio and show/hide sound bars animation
+            function toggleAudio() {
+                if (audio.paused || audio.ended) {
+                    audio.volume = 0.2; // Set volume to 20%
+                    audio.play().catch(function(error) {
+                        console.error('Audio play failed:', error);
+                    });
+        
+                    // Show sound bars and activate animation
+                    bars.forEach(function(bar, index) {
+                        bar.style.display = 'block'; // Show sound bar
+                        bar.style.animation = `sound ${getRandomDuration()}ms ${getRandomDelay()}ms linear infinite alternate`;
+                    });
+                } else {
+                    audio.pause();
+        
+                    // Hide sound bars and reset animation properties
+                    bars.forEach(function(bar) {
+                        bar.style.display = 'none'; // Hide sound bar
+                        bar.style.animation = 'none'; // Remove animation
+                    });
+                }
+            }
+        
+            // Attach toggleAudio function to button click
+            var myPalagiButton = document.getElementById('myPalagiButton');
+            if (myPalagiButton) {
+                myPalagiButton.addEventListener('click', toggleAudio);
+            }
+        });
+        
+        
+
+
+    </script>
 
     <script src="main.js"></script>
+    
 </body>
 </html>
